@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer
-from .models import CustomUserModel
+from .models import CustomUserModel,Document
 from django.conf import settings
 
 class CustomUserModelSerializer(ModelSerializer):
@@ -20,3 +20,10 @@ class CustomUserModelSerializer(ModelSerializer):
     )
 
     return user
+
+class DocumentModelSerializer(ModelSerializer):
+    class Meta:
+        model = Document
+        fields=[
+                ""
+                ]
