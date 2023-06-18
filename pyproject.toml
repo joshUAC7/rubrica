@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "rubrica"
+version = "0.1.0"
+description = ""
+authors = ["user <020200295a@uandina.edu.pe>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+django = "^4.2.2"
+djangorestframework = "^3.14.0"
+django-cors-headers = "^4.0.0"
+djangorestframework-simplejwt = "^5.2.2"
+docxtpl = "^0.16.7"
+dj-rest-auth = {version = "4.0.0", extras = ["with-social"]}
+django-allauth = "0.52.0"
+dj-database-url = "^2.0.0"
+psycopg2-binary = "^2.9.6"
+mysqlclient = "^2.1.1"
+gunicorn = "^20.1.0"
+whitenoise = {extras = ["brotli"], version = "^6.5.0"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
