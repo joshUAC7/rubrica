@@ -36,25 +36,26 @@ class CustomUserModelManager(BaseUserManager):
 
 
 class CustomUserModel(AbstractBaseUser, PermissionsMixin):
-  userId    = models.CharField(max_length = 16, default = uuid4, primary_key = True, editable = False)
-  username  = models.CharField(max_length = 16, unique = True, null = False, blank = False)
-  email     = models.EmailField(max_length = 100, unique = True, null = False, blank = False)
+    userId    = models.CharField(max_length = 16, default = uuid4().hex[:15], primary_key = True, editable = False)
+    username  = models.CharField(max_length = 16, unique = True, null = False, blank = False)
+    email     = models.EmailField(max_length = 100, unique = True, null = False, blank = False)
 
-  USERNAME_FIELD = "username"
-  REQUIRED_FIELDS = ["email"]
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = ["email"]
 
-  active       = models.BooleanField(default = True)
-  
-  is_staff     = models.BooleanField(default = False)
-  is_superuser = models.BooleanField(default = False)
-  
-  created_on   = models.DateTimeField(auto_now_add = True, blank = True, null = True)
-  updated_at   = models.DateTimeField(auto_now = True)
+    active       = models.BooleanField(default = True)
 
-  objects = CustomUserModelManager()
+    is_staff     = models.BooleanField(default = False)
+    is_superuser = models.BooleanField(default = False)
 
-  class Meta:
-    verbose_name = "Custom User"
+    created_on   = models.DateTimeField(auto_now_add = True, blank = True, null = True)
+    updated_at   = models.DateTimeField(auto_now = True)
+
+    objects = CustomUserModelManager()
+
+    class Meta:
+        verbose_name = "Custom User"
+
 class Document(models.Model):
     Extension = models.CharField(max_length=50, null=True)
     FileName = models.CharField(max_length=200, null=True)
