@@ -38,10 +38,26 @@ class ReporteView(APIView):
         template.save("staticfiles/informe"+"."+one.Extension)
         file_path = staticfiles_storage.path("informe" +"."+one.Extension)
         with open(file_path, 'rb') as pdf:
-            response = HttpResponse(pdf.read(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="Informe.pdf"'
+            response = HttpResponse(pdf.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response['Content-Disposition'] = 'attachment; filename="Infome.docx"'
             return response
         # return JsonResponse(request.data,safe=False)
        
 
+class Reporte2View(APIView):
+    permission_classes=[AllowAny]
+    def post(self,request:Request):
+        one = Document.objects.get(id=3)
+        write_file(one.Doc_Content,one.FileName+"."+one.Extension)
+        file_path = staticfiles_storage.path(one.FileName+"."+one.Extension)
+        template = DocxTemplate(file_path)
+        contextVars = request.data.copy()
+        template.render(contextVars)
+        template.save("staticfiles/reporte"+"."+one.Extension)
+        file_path = staticfiles_storage.path("reporte" +"."+one.Extension)
+        with open(file_path, 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+            response['Content-Disposition'] = 'attachment; filename="reporte.docx"'
+            return response
+        # return JsonResponse(request.data,safe=False)
  

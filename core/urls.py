@@ -17,11 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import PdfView,ReporteView
+from .views import PdfView, Reporte2View,ReporteView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/instrumento/',PdfView.as_view()),
     path('api/reporte/',ReporteView.as_view()),
+    path('api/informe/',Reporte2View.as_view()),
     # path("api/posts/", include("posts.urls")),
     path("api/auth/", include("dj_rest_auth.urls")),  # endpoints provided by dj-rest-auth
     path("api/social/", include("drfauth.urls")),  # our own views,
