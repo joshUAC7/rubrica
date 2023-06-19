@@ -18,7 +18,6 @@ class PdfView(APIView):
     permission_classes=[AllowAny]
     def get(self,request):
         one = Document.objects.get(id=1)
-        print(one.FileName)
         write_file(one.Doc_Content,one.FileName+"."+one.Extension)
         file_path = staticfiles_storage.path(one.FileName+"."+one.Extension)
         print(file_path)
@@ -30,14 +29,19 @@ class PdfView(APIView):
 class ReporteView(APIView):
     permission_classes=[AllowAny]
     def post(self,request:Request):
-        file_path = staticfiles_storage.path('pdfs/anexo.docx')
-        print(request.data)
+        one = Document.objects.get(id=2)
+        write_file(one.Doc_Content,one.FileName+"."+one.Extension)
+        file_path = staticfiles_storage.path(one.FileName+"."+one.Extension)
         template = DocxTemplate(file_path)
         contextVars = request.data.copy()
         template.render(contextVars)
-        template.save("staticfiles/pdfs/informe.docx")
-        file_path = staticfiles_storage.path('pdfs/informe.pdf')
-        return JsonResponse(request.data,safe=False)
+        template.save("staticfiles/informe"+"."+one.Extension)
+        file_path = staticfiles_storage.path("informe" +"."+one.Extension)
+        with open(file_path, 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='application/pdf')
+            response['Content-Disposition'] = 'attachment; filename="Informe.pdf"'
+            return response
+        # return JsonResponse(request.data,safe=False)
        
 
  
